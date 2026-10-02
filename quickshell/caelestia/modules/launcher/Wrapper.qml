@@ -22,13 +22,23 @@ Item {
         return max;
     }
 
+    property bool hasLoaded: false
     property real offsetScale: shouldBeActive ? 0 : 1
 
     onShouldBeActiveChanged: {
-        if (shouldBeActive)
+        if (shouldBeActive) {
+            hasLoaded = true;
             implicitHeight = Qt.binding(() => content.implicitHeight);
-        else
+        } else {
             implicitHeight = implicitHeight; // Break binding during close anim
+        }
+    }
+
+    Timer {
+        interval: 1000
+        running: true
+        repeat: false
+        onTriggered: root.hasLoaded = true
     }
 
     visible: offsetScale < 1
@@ -40,7 +50,9 @@ Item {
     Component.onCompleted: Qt.callLater(() => Apps) // Load apps on init
 
     Behavior on offsetScale {
-        Anim {}
+        Anim {
+            type: Anim.FastSpatial
+        }
     }
 
     Loader {
@@ -49,7 +61,8 @@ Item {
         anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
 
-        active: root.shouldBeActive || root.visible
+        asynchronous: true
+        active: root.hasLoaded || root.shouldBeActive || root.visible
 
         sourceComponent: Content {
             screenState: root.screenState

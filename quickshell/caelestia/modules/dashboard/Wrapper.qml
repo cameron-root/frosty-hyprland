@@ -29,7 +29,20 @@ Item {
 
     readonly property real nonAnimHeight: (content.item as Content)?.nonAnimHeight ?? 0
     readonly property bool shouldBeActive: screenState.dashboard && Config.dashboard.enabled
+    property bool hasLoaded: false
     property real offsetScale: shouldBeActive ? 0 : 1
+
+    onShouldBeActiveChanged: {
+        if (shouldBeActive)
+            hasLoaded = true;
+    }
+
+    Timer {
+        interval: 800
+        running: true
+        repeat: false
+        onTriggered: root.hasLoaded = true
+    }
 
     visible: offsetScale < 1
     anchors.topMargin: (-implicitHeight - 5) * offsetScale
@@ -38,7 +51,9 @@ Item {
     opacity: 1 - offsetScale
 
     Behavior on offsetScale {
-        Anim {}
+        Anim {
+            type: Anim.FastSpatial
+        }
     }
 
     Loader {
@@ -47,7 +62,8 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
 
-        active: root.shouldBeActive || root.visible
+        asynchronous: true
+        active: root.hasLoaded || root.shouldBeActive || root.visible
 
         sourceComponent: Content {
             screenState: root.screenState

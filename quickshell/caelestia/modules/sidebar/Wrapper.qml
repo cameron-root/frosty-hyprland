@@ -12,7 +12,20 @@ Item {
     readonly property Props props: Props {}
 
     readonly property bool shouldBeActive: screenState.sidebar && Config.sidebar.enabled
+    property bool hasLoaded: false
     property real offsetScale: shouldBeActive ? 0 : 1
+
+    onShouldBeActiveChanged: {
+        if (shouldBeActive)
+            hasLoaded = true;
+    }
+
+    Timer {
+        interval: 1200
+        running: true
+        repeat: false
+        onTriggered: root.hasLoaded = true
+    }
 
     visible: offsetScale < 1
     anchors.rightMargin: (-implicitWidth - 5) * offsetScale
@@ -20,7 +33,9 @@ Item {
     opacity: 1 - offsetScale
 
     Behavior on offsetScale {
-        Anim {}
+        Anim {
+            type: Anim.FastSpatial
+        }
     }
 
     Loader {
@@ -33,7 +48,8 @@ Item {
         anchors.margins: CUtils.clamp(anchors.leftMargin - Config.border.thickness, 0, anchors.leftMargin)
         anchors.bottomMargin: 0
 
-        active: root.shouldBeActive || root.visible
+        asynchronous: true
+        active: root.hasLoaded || root.shouldBeActive || root.visible
 
         sourceComponent: Content {
             implicitWidth: Tokens.sizes.sidebar.width - content.anchors.leftMargin - content.anchors.margins
