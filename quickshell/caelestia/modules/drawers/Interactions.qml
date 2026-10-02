@@ -20,6 +20,7 @@ CustomMouseArea {
 
     property point dragStart
     property bool dashboardShortcutActive
+    property bool launcherShortcutActive
     property bool osdShortcutActive
     property bool utilitiesShortcutActive
 
@@ -74,6 +75,9 @@ CustomMouseArea {
 
             if (!dashboardShortcutActive)
                 screenState.dashboard = false;
+
+            if (!launcherShortcutActive)
+                screenState.launcher = false;
 
             if (!utilitiesShortcutActive)
                 screenState.utilities = false;
@@ -197,10 +201,16 @@ CustomMouseArea {
         }
 
         // Show launcher on hover, or show/hide on drag if hover is disabled
-        if (Config.launcher.showOnHover) {
-            if (!screenState.launcher && inBottomPanel(panels.launcher, x, y))
-                screenState.launcher = true;
-        } else if (pressed && inBottomPanel(panels.launcher, dragStart.x, dragStart.y) && withinPanelWidth(panels.launcher, x, y)) {
+        const showLauncher = Config.launcher.showOnHover && inBottomPanel(panels.launcher, x, y);
+
+        // Always update visibility based on hover if not in shortcut mode
+        if (!launcherShortcutActive) {
+            screenState.launcher = showLauncher;
+        } else if (showLauncher) {
+            launcherShortcutActive = false;
+        }
+
+        if (!Config.launcher.showOnHover && pressed && inBottomPanel(panels.launcher, dragStart.x, dragStart.y) && withinPanelWidth(panels.launcher, x, y)) {
             if (dragY < -Config.launcher.dragThreshold)
                 screenState.launcher = true;
             else if (dragY > Config.launcher.dragThreshold)
@@ -249,8 +259,14 @@ CustomMouseArea {
     // Monitor individual visibility changes
     Connections {
         function onLauncherChanged() {
-            // If launcher is hidden, clear shortcut flags for dashboard and OSD
-            if (!root.screenState.launcher) {
+            if (root.screenState.launcher) {
+                const inLauncherArea = root.inBottomPanel(root.panels.launcher, root.mouseX, root.mouseY);
+                if (!inLauncherArea) {
+                    root.launcherShortcutActive = true;
+                }
+            } else {
+                root.launcherShortcutActive = false;
+                // If launcher is hidden, clear shortcut flags for dashboard and OSD
                 root.dashboardShortcutActive = false;
                 root.osdShortcutActive = false;
                 root.utilitiesShortcutActive = false;
