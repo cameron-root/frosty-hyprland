@@ -32,7 +32,7 @@
 On a fresh installation of **Arch Linux** (or an Arch-based distribution), simply clone this repository and run the unattended installer:
 
 ```bash
-git clone https://github.com/ShadowGhost5587/frosty-hyprland.git
+git clone https://github.com/cameron-root/frosty-hyprland.git
 cd frosty-hyprland
 chmod +x install.sh
 ./install.sh
@@ -168,7 +168,7 @@ git commit -m "feat: initial commit of Frosty Hyprland Liquid Glass Desktop"
 git branch -M main
 
 # Add your GitHub remote URL
-git remote add origin https://github.com/ShadowGhost5587/frosty-hyprland.git
+git remote add origin https://github.com/cameron-root/frosty-hyprland.git
 
 # Push to GitHub
 git push -u origin main
