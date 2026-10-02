@@ -30,10 +30,30 @@ Item {
     property real offsetScale: shouldBeActive ? 0 : 1
     property real sidebarLerp: 0
 
+    property bool hasLoaded: false
+
+    onShouldBeActiveChanged: {
+        if (shouldBeActive) {
+            hasLoaded = true;
+            implicitHeight = Qt.binding(() => content.implicitHeight + totalPadding);
+        } else {
+            implicitHeight = implicitHeight;
+        }
+    }
+
+    Timer {
+        interval: 1000
+        running: true
+        repeat: false
+        onTriggered: root.hasLoaded = true
+    }
+
     visible: offsetScale < 1
     anchors.bottomMargin: (-implicitHeight - 5) * offsetScale
-    implicitHeight: content.implicitHeight + totalPadding
+    implicitHeight: Math.max(content.implicitHeight + totalPadding, 420)
     implicitWidth: Math.max(Tokens.sizes.utilities.width, 380)
+    width: implicitWidth
+    height: implicitHeight
     opacity: 1 - offsetScale
 
     transitions: [
@@ -58,7 +78,10 @@ Item {
     ]
 
     Behavior on offsetScale {
-        Anim {}
+        NumberAnimation {
+            duration: 320
+            easing.type: Easing.OutCubic
+        }
     }
 
     Loader {
@@ -69,7 +92,7 @@ Item {
         anchors.margins: Tokens.padding.large
 
         asynchronous: true
-        active: root.shouldBeActive || root.visible
+        active: root.hasLoaded || root.shouldBeActive || root.visible
 
         sourceComponent: Content {
             implicitWidth: root.implicitWidth - root.totalPadding

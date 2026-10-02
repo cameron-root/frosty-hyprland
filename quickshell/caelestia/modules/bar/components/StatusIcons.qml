@@ -47,6 +47,16 @@ StyledRect {
     implicitWidth: Tokens.sizes.bar.innerWidth
     implicitHeight: iconColumn.implicitHeight + Tokens.padding.medium * 2
 
+    MouseArea {
+        anchors.fill: parent
+        cursorShape: Qt.PointingHandCursor
+        onClicked: {
+            const screenState = ShellState.forActive();
+            if (screenState)
+                screenState.utilities = !screenState.utilities;
+        }
+    }
+
     ColumnLayout {
         id: iconColumn
 

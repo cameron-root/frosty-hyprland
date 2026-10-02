@@ -117,6 +117,8 @@ StyledWindow {
             const conf = root.contentItem.Config;
             if ((s.launcher && conf.launcher.enabled) || (s.session && conf.session.enabled) || (s.sidebar && conf.sidebar.enabled))
                 return true;
+            if (s.utilities && interactions.utilitiesShortcutActive && conf.utilities.enabled)
+                return true;
             if (!conf.dashboard.showOnHover && s.dashboard && conf.dashboard.enabled)
                 return true;
             if (panels.popouts.currentName.startsWith("traymenu") && (panels.popouts.current as StackView)?.depth > 1)
@@ -129,6 +131,7 @@ StyledWindow {
             root.screenState.session = false;
             root.screenState.sidebar = false;
             root.screenState.dashboard = false;
+            root.screenState.utilities = false;
             panels.popouts.hasCurrent = false;
             bar.closeTray();
         }
