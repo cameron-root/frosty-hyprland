@@ -46,8 +46,8 @@ Item {
 
     visible: offsetScale < 1
     anchors.topMargin: (-implicitHeight - 5) * offsetScale
-    implicitHeight: content.implicitHeight
-    implicitWidth: content.implicitWidth || 854 // Hard coded fallback for first open
+    implicitHeight: Math.max(content.implicitHeight, 460)
+    implicitWidth: Math.max(content.implicitWidth, 854)
     opacity: 1 - offsetScale
 
     Behavior on offsetScale {

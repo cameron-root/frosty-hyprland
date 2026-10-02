@@ -43,8 +43,8 @@ Item {
 
     visible: offsetScale < 1
     anchors.bottomMargin: (-implicitHeight - 5) * offsetScale
-    implicitHeight: content.implicitHeight
-    implicitWidth: content.implicitWidth || 630 // Hard coded fallback for first open
+    implicitHeight: Math.max(content.implicitHeight, 440)
+    implicitWidth: Math.max(content.implicitWidth, 630)
     opacity: 1 - offsetScale
 
     Component.onCompleted: Qt.callLater(() => Apps) // Load apps on init

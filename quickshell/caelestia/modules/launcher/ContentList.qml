@@ -78,7 +78,7 @@ Item {
     Loader {
         id: appList
 
-        active: false
+        active: true
 
         anchors.fill: parent
 
