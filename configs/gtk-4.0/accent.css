@@ -1,0 +1,6 @@
+/* Dynamic Accent Colors (Emerald Green) */
+@define-color accent_color #28c840;
+@define-color accent_bg_color #28c840;
+@define-color accent_fg_color #ffffff;
+@define-color accent_selection alpha(@accent_color, 0.35);
+@define-color accent_focus alpha(@accent_color, 0.50);

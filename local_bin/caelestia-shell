@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# Wrapper to run Caelestia Shell via Quickshell with local plugins and fonts
+
+export QML_IMPORT_PATH="$HOME/.local/lib/qt6/qml:/usr/lib/qt6/qml:${QML_IMPORT_PATH}"
+export LD_LIBRARY_PATH="$HOME/.local/lib:/usr/lib:${LD_LIBRARY_PATH}"
+export PATH="$HOME/.local/bin:${PATH}"
+export CAELESTIA_WALLPAPERS_DIR="$HOME/Pictures/wallpapers"
+
+# Ensure WAYLAND_DISPLAY and HYPRLAND_INSTANCE_SIGNATURE are present
+for i in {1..30}; do
+    if [ -z "$WAYLAND_DISPLAY" ]; then
+        W_DISP=$(systemctl --user show-environment 2>/dev/null | grep '^WAYLAND_DISPLAY=' | cut -d= -f2-)
+        [ -n "$W_DISP" ] && export WAYLAND_DISPLAY="$W_DISP"
+    fi
+
+    if [ -z "$HYPRLAND_INSTANCE_SIGNATURE" ]; then
+        H_SIG=$(systemctl --user show-environment 2>/dev/null | grep '^HYPRLAND_INSTANCE_SIGNATURE=' | cut -d= -f2-)
+        if [ -z "$H_SIG" ] && [ -d /tmp/hypr ]; then
+            for sig in $(ls -td /tmp/hypr/* 2>/dev/null); do
+                if [ -S "$sig/.socket.sock" ]; then
+                    H_SIG=$(basename "$sig")
+                    break
+                fi
+            done
+        fi
+        [ -n "$H_SIG" ] && export HYPRLAND_INSTANCE_SIGNATURE="$H_SIG"
+    fi
+
+    if [ -n "$WAYLAND_DISPLAY" ] && [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ]; then
+        break
+    fi
+    sleep 0.2
+done
+
+exec quickshell -c caelestia "$@"

@@ -1,0 +1,8 @@
+module M3Shapes
+linktarget m3shapesplugin
+optional plugin m3shapesplugin
+classname M3ShapesPlugin
+typeinfo m3shapes.qmltypes
+prefer :/qt/qml/M3Shapes/
+depends QtQuick
+

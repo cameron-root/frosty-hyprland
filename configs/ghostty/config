@@ -1,0 +1,85 @@
+# ╔═══════════════════════════════════════════════════════════════════╗
+# ║   Ghostty Terminal — iOS Liquid Frosted Glass Config             ║
+# ║   Caelestia + Hyprland | ghost@arch                              ║
+# ╚═══════════════════════════════════════════════════════════════════╝
+
+# ── Font ──────────────────────────────────────────────────────────
+font-family = JetBrains Mono Nerd Font
+font-size = 11.5
+font-feature = +liga
+font-feature = +calt
+adjust-cell-height = 10%
+
+# ── Frosted Glass ─────────────────────────────────────────────────
+background = 0d1018
+foreground = f0f6fc
+background-opacity = 0.72
+background-blur-radius = 32
+
+# ── Window ────────────────────────────────────────────────────────
+window-decoration = false
+window-padding-x = 12
+window-padding-y = 12
+window-height = 32
+window-width = 110
+window-save-state = always
+window-theme = dark
+
+# ── Cursor ────────────────────────────────────────────────────────
+cursor-color = ffffff
+cursor-style = block
+cursor-style-blink = true
+cursor-invert-fg-bg = false
+
+# ── Selection ─────────────────────────────────────────────────────
+selection-background = 2a3550
+selection-foreground = f0f6fc
+
+# ── UX ────────────────────────────────────────────────────────────
+mouse-hide-while-typing = true
+confirm-close-surface = false
+bold-is-bright = false
+shell-integration = detect
+shell-integration-features = cursor,sudo
+term = xterm-256color
+wait-after-command = false
+unfocused-split-opacity = 0.7
+gtk-single-instance = true
+quick-terminal-position = center
+
+# ── 16 ANSI Colors — iOS Frosted Glass ───────────────────────────
+# Black
+palette = 0=#1a1f2e
+palette = 8=#313131
+
+# Red
+palette = 1=#ff5f56
+palette = 9=#ff7b72
+
+# Green
+palette = 2=#28c840
+palette = 10=#3fb950
+
+# Yellow
+palette = 3=#febc2e
+palette = 11=#d29922
+
+# Blue
+palette = 4=#388bfd
+palette = 12=#58a6ff
+
+# Magenta / Purple
+palette = 5=#9A5BDD
+palette = 13=#bc8cff
+
+# Cyan
+palette = 6=#79c0ff
+palette = 14=#a5d6ff
+
+# White
+palette = 7=#f0f6fc
+palette = 15=#ffffff
+
+# ── Config overrides (last wins) ──────────────────────────────────
+# Wallust injects dynamic colors here — overrides palette above
+config-file = ?~/.config/ghostty/wallust.conf

@@ -1,0 +1,231 @@
+# ╔═══════════════════════════════════════════════════════════════════╗
+# ║   Starship Prompt — iOS Minimal Glass Theme                      ║
+# ║   Caelestia + Hyprland | ghost@arch                              ║
+# ╚═══════════════════════════════════════════════════════════════════╝
+
+# ── Top-level format ─────────────────────────────────────────────
+format = """
+[╭─](bold dimmed white)$directory$git_branch$git_status $fill$cmd_duration$time
+[╰─](bold dimmed white)$character"""
+
+# Right prompt (shown on the right of the first line)
+right_format = """$battery$hostname"""
+
+# ── Behaviour ────────────────────────────────────────────────────
+add_newline = true
+scan_timeout = 30
+command_timeout = 500
+
+# ╔═══════════════════════════════════════════════════════════════════╗
+# ║  DIRECTORY                                                       ║
+# ╚═══════════════════════════════════════════════════════════════════╝
+[directory]
+style = "bold #58a6ff"
+format = "[$path]($style)[$read_only]($read_only_style) "
+truncation_length = 3
+truncate_to_repo = true
+fish_style_pwd_dir_length = 1
+read_only = " 󰌾"
+read_only_style = "bold red"
+
+# ╔═══════════════════════════════════════════════════════════════════╗
+# ║  GIT                                                             ║
+# ╚═══════════════════════════════════════════════════════════════════╝
+[git_branch]
+style = "bold #bc8cff"
+symbol = " "
+format = "on [$symbol$branch(:$remote_branch)]($style) "
+truncation_length = 20
+truncation_symbol = "…"
+
+[git_status]
+style = "bold #ff7b72"
+format = '([\[$all_status$ahead_behind\]]($style) )'
+ahead = "⬆${count}"
+behind = "⬇${count}"
+diverged = "⬆${ahead_count}⬇${behind_count}"
+conflicted = "✖${count}"
+deleted = "✘${count}"
+renamed = "»${count}"
+modified = "!${count}"
+staged = "+${count}"
+untracked = "?${count}"
+stashed = "≡"
+
+# ╔═══════════════════════════════════════════════════════════════════╗
+# ║  FILL (separates left from right info)                           ║
+# ╚═══════════════════════════════════════════════════════════════════╝
+[fill]
+symbol = " "
+
+# ╔═══════════════════════════════════════════════════════════════════╗
+# ║  COMMAND DURATION                                                ║
+# ╚═══════════════════════════════════════════════════════════════════╝
+[cmd_duration]
+style = "#d29922"
+format = "[ $duration]($style) "
+min_time = 2_000
+show_milliseconds = false
+
+# ╔═══════════════════════════════════════════════════════════════════╗
+# ║  TIME                                                            ║
+# ╚═══════════════════════════════════════════════════════════════════╝
+[time]
+disabled = false
+style = "dimmed white"
+format = "[ $time]($style)"
+time_format = "%H:%M"
+use_12hr = false
+
+# ╔═══════════════════════════════════════════════════════════════════╗
+# ║  CHARACTER (prompt symbol)                                       ║
+# ╚═══════════════════════════════════════════════════════════════════╝
+[character]
+success_symbol = "[❯](bold #3fb950)"
+error_symbol   = "[❯](bold #ff7b72)"
+vimcmd_symbol  = "[❮](bold #bc8cff)"
+
+# ╔═══════════════════════════════════════════════════════════════════╗
+# ║  BATTERY (only when ≤30%)                                        ║
+# ╚═══════════════════════════════════════════════════════════════════╝
+[battery]
+full_symbol        = "󰁹 "
+charging_symbol    = "󰂄 "
+discharging_symbol = "󰂃 "
+unknown_symbol     = "󰁽 "
+empty_symbol       = "󰂎 "
+format = "[$symbol$percentage]($style) "
+
+[[battery.display]]
+threshold = 30
+style = "bold #ff7b72"
+
+[[battery.display]]
+threshold = 60
+style = "#d29922"
+disabled = true
+
+[[battery.display]]
+threshold = 100
+style = "#3fb950"
+disabled = true
+
+# ╔═══════════════════════════════════════════════════════════════════╗
+# ║  HOSTNAME (only over SSH)                                        ║
+# ╚═══════════════════════════════════════════════════════════════════╝
+[hostname]
+ssh_only = true
+style = "bold #58a6ff"
+format = "[@$hostname]($style) "
+disabled = false
+
+# ╔═══════════════════════════════════════════════════════════════════╗
+# ║  DISABLED MODULES (keep prompt clean)                            ║
+# ╚═══════════════════════════════════════════════════════════════════╝
+[username]
+disabled = true
+
+[package]
+disabled = true
+
+[aws]
+disabled = true
+
+[gcloud]
+disabled = true
+
+[azure]
+disabled = true
+
+[docker_context]
+disabled = true
+
+[kubernetes]
+disabled = true
+
+[terraform]
+disabled = true
+
+[nodejs]
+disabled = true
+
+[python]
+disabled = true
+
+[ruby]
+disabled = true
+
+[rust]
+disabled = true
+
+[golang]
+disabled = true
+
+[java]
+disabled = true
+
+[php]
+disabled = true
+
+[swift]
+disabled = true
+
+[dart]
+disabled = true
+
+[elixir]
+disabled = true
+
+[elm]
+disabled = true
+
+[haskell]
+disabled = true
+
+[julia]
+disabled = true
+
+[kotlin]
+disabled = true
+
+[lua]
+disabled = true
+
+[nim]
+disabled = true
+
+[perl]
+disabled = true
+
+[scala]
+disabled = true
+
+[zig]
+disabled = true
+
+[conda]
+disabled = true
+
+[nix_shell]
+disabled = true
+
+[vagrant]
+disabled = true
+
+[crystal]
+disabled = true
+
+[ocaml]
+disabled = true
+
+[purescript]
+disabled = true
+
+[vlang]
+disabled = true
+
+[memory_usage]
+disabled = true
+
+[line_break]
+disabled = true

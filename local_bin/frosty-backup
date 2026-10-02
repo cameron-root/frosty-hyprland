@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+# ==============================================================================
+# ❄️ Frosty Hyprland — Complete State Backup Tool
+# Saves all configuration files, themes, scripts, services and schemes
+# ==============================================================================
+
+set -euo pipefail
+
+SNAPSHOTS_DIR="$HOME/.snapshots"
+TARGET_NAME="${1:-frosty-hyprland-insane}"
+DEST="$SNAPSHOTS_DIR/$TARGET_NAME"
+
+echo "❄️ Backing up Frosty Hyprland state to $DEST..."
+
+mkdir -p "$DEST/configs"
+mkdir -p "$DEST/configs/systemd/user"
+mkdir -p "$DEST/local_bin"
+mkdir -p "$DEST/local_share/caelestia"
+mkdir -p "$DEST/quickshell"
+
+# 1. Configs
+for dir in hypr caelestia kitty ghostty gtk-3.0 gtk-4.0 Kvantum qt5ct qt6ct cava rofi; do
+    if [ -d "$HOME/.config/$dir" ]; then
+        rm -rf "$DEST/configs/$dir"
+        cp -a "$HOME/.config/$dir" "$DEST/configs/"
+    fi
+done
+
+# Starship and systemd services
+[ -f "$HOME/.config/starship.toml" ] && cp -a "$HOME/.config/starship.toml" "$DEST/configs/"
+[ -f "$HOME/.config/systemd/user/caelestia-shell.service" ] && cp -a "$HOME/.config/systemd/user/caelestia-shell.service" "$DEST/configs/systemd/user/"
+
+# 2. Local Binaries & Scripts
+cp -a "$HOME/.local/bin/caelestia" "$DEST/local_bin/" 2>/dev/null || true
+cp -a "$HOME/.local/bin/caelestia-shell" "$DEST/local_bin/" 2>/dev/null || true
+cp -a "$HOME/.local/bin/frosty-settings" "$DEST/local_bin/" 2>/dev/null || true
+cp -a "$HOME/.local/bin/frosty-backup" "$DEST/local_bin/" 2>/dev/null || true
+cp -a "$HOME/.local/bin/frosty-restore" "$DEST/local_bin/" 2>/dev/null || true
+
+# 3. Caelestia Schemes
+if [ -d "$HOME/.local/share/caelestia/schemes" ]; then
+    rm -rf "$DEST/local_share/caelestia/schemes"
+    cp -a "$HOME/.local/share/caelestia/schemes" "$DEST/local_share/caelestia/"
+fi
+
+# 4. Quickshell Caelestia Shell Module
+if [ -d "$HOME/.local/etc/xdg/quickshell/caelestia" ]; then
+    rm -rf "$DEST/quickshell/caelestia"
+    cp -a "$HOME/.local/etc/xdg/quickshell/caelestia" "$DEST/quickshell/"
+fi
+
+# 5. Avatar and State
+[ -f "$HOME/.face" ] && cp -a "$HOME/.face" "$DEST/"
+[ -f "$HOME/.local/state/accent.txt" ] && mkdir -p "$DEST/state" && cp -a "$HOME/.local/state/accent.txt" "$DEST/state/"
+
+# 6. Ensure restore script exists in target
+if [ -f "$SNAPSHOTS_DIR/frosty-hyprland/restore.sh" ]; then
+    cp -a "$SNAPSHOTS_DIR/frosty-hyprland/restore.sh" "$DEST/restore.sh"
+    chmod +x "$DEST/restore.sh"
+fi
+
+# 7. Mirror to standard frosty-hyprland folder
+if [ "$TARGET_NAME" = "frosty-hyprland-insane" ]; then
+    mkdir -p "$SNAPSHOTS_DIR/frosty-hyprland"
+    cp -a "$DEST/"* "$SNAPSHOTS_DIR/frosty-hyprland/"
+fi
+
+# 8. Create compressed tar.gz archives
+echo "  -> Compressing archives..."
+cd "$SNAPSHOTS_DIR"
+tar -czf "$TARGET_NAME.tar.gz" "$TARGET_NAME"
+if [ "$TARGET_NAME" = "frosty-hyprland-insane" ]; then
+    tar -czf "frosty-hyprland.tar.gz" "frosty-hyprland"
+fi
+
+echo "✨ Backup complete! Saved to:"
+echo "   - $DEST"
+echo "   - $SNAPSHOTS_DIR/$TARGET_NAME.tar.gz"
+caelestia toast success "Snapshot Saved" "Persistent snapshot '$TARGET_NAME' updated" "document-save" 2>/dev/null || true

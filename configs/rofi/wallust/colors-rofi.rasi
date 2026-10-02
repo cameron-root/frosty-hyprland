@@ -1,0 +1,46 @@
+/* ---- 💫 iOS Frosted Glass Theme for Rofi 💫 ---- */
+
+* {
+    active-background:           rgba(255, 255, 255, 0.18);
+    active-foreground:           #FFFFFF;
+    normal-background:           transparent;
+    normal-foreground:           #F3F4F6;
+    urgent-background:           rgba(239, 68, 68, 0.35);
+    urgent-foreground:           #FFFFFF;
+
+    alternate-active-background: rgba(255, 255, 255, 0.10);
+    alternate-active-foreground: #F3F4F6;
+    alternate-normal-background: transparent;
+    alternate-normal-foreground: #F3F4F6;
+    alternate-urgent-background: transparent;
+    alternate-urgent-foreground: #F3F4F6;
+
+    selected-active-background:  rgba(255, 255, 255, 0.22);
+    selected-active-foreground:  #FFFFFF;
+    selected-normal-background:  rgba(255, 255, 255, 0.18);
+    selected-normal-foreground:  #FFFFFF;
+    selected-urgent-background:  rgba(239, 68, 68, 0.45);
+    selected-urgent-foreground:  #FFFFFF;
+
+    background-color:            transparent;
+    background:                  rgba(18, 20, 28, 0.45);
+    foreground:                  #F3F4F6;
+    border-color:                rgba(255, 255, 255, 0.16);
+
+    color0:                      rgba(255, 255, 255, 0.08);
+    color1:                      rgba(255, 255, 255, 0.12);
+    color2:                      rgba(255, 255, 255, 0.16);
+    color3:                      rgba(255, 255, 255, 0.20);
+    color4:                      rgba(255, 255, 255, 0.25);
+    color5:                      rgba(255, 255, 255, 0.30);
+    color6:                      #E5E7EB;
+    color7:                      #F3F4F6;
+    color8:                      #9CA3AF;
+    color9:                      rgba(255, 255, 255, 0.06);
+    color10:                     rgba(255, 255, 255, 0.14);
+    color11:                     rgba(255, 255, 255, 0.18);
+    color12:                     rgba(255, 255, 255, 0.22);
+    color13:                     rgba(255, 255, 255, 0.26);
+    color14:                     #E0E7FF;
+    color15:                     #FFFFFF;
+}

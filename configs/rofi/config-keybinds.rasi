@@ -1,0 +1,169 @@
+/* ---- 💫 iOS Frosted Bubble Glass Theme for Keybinds 💫 ---- */
+
+@import "~/.config/rofi/0-shared-fonts.rasi"
+@import "~/.config/rofi/wallust/colors-rofi.rasi"
+
+configuration {
+    show-icons: false;
+}
+
+window {
+    transparency:                "real";
+    location:                    center;
+    anchor:                      center;
+    fullscreen:                  false;
+    width:                       70%;
+    x-offset:                    0px;
+    y-offset:                    0px;
+
+    enabled:                     true;
+    margin:                      0px;
+    padding:                     0px;
+    border:                      1px solid;
+    border-radius:               26px;
+    border-color:                rgba(255, 255, 255, 0.18);
+    cursor:                      "default";
+    background-color:            rgba(15, 17, 26, 0.60);
+}
+
+mainbox {
+    enabled:                     true;
+    spacing:                     12px;
+    margin:                      0px;
+    padding:                     24px;
+    border:                      0px;
+    border-color:                transparent;
+    background-color:            transparent;
+    children:                    [ "inputbar", "message", "listview" ];
+}
+
+inputbar {
+    enabled:                     true;
+    spacing:                     10px;
+    margin:                      0px;
+    padding:                     12px 18px;
+    border:                      1px solid;
+    border-radius:               16px;
+    border-color:                rgba(255, 255, 255, 0.12);
+    background-color:            rgba(255, 255, 255, 0.08);
+    text-color:                  #FFFFFF;
+    children:                    [ "textbox-prompt-colon", "entry" ];
+}
+
+textbox-prompt-colon {
+    enabled:                     true;
+    padding:                     0px 6px 0px 0px;
+    expand:                      false;
+    str:                         "⌨️";
+    background-color:            transparent;
+    text-color:                  inherit;
+    vertical-align:              0.5;
+}
+
+entry {
+    enabled:                     true;
+    padding:                     2px 0px;
+    background-color:            transparent;
+    text-color:                  #FFFFFF;
+    cursor:                      text;
+    placeholder:                 "Search shortcuts by key, action, category (e.g. apps, window, caelestia, media)...";
+    placeholder-color:           rgba(243, 244, 246, 0.45);
+    vertical-align:              0.5;
+}
+
+message {
+    enabled:                     true;
+    margin:                      0px;
+    padding:                     0px;
+    border:                      0px;
+    background-color:            transparent;
+    text-color:                  rgba(243, 244, 246, 0.70);
+}
+
+textbox {
+    padding:                     8px 14px;
+    border:                      0px;
+    border-radius:               12px;
+    background-color:            rgba(255, 255, 255, 0.05);
+    text-color:                  inherit;
+    vertical-align:              0.5;
+    horizontal-align:            0.0;
+}
+
+listview {
+    enabled:                     true;
+    columns:                     1;
+    lines:                       11;
+    cycle:                       true;
+    dynamic:                     true;
+    scrollbar:                   false;
+    layout:                      vertical;
+    reverse:                     false;
+    fixed-height:                true;
+    fixed-columns:               true;
+    spacing:                     6px;
+    margin:                      4px 0px 0px 0px;
+    padding:                     0px;
+    background-color:            transparent;
+}
+
+element {
+    enabled:                     true;
+    spacing:                     10px;
+    margin:                      0px;
+    padding:                     10px 16px;
+    border:                      1px solid;
+    border-radius:               14px;
+    border-color:                transparent;
+    background-color:            transparent;
+    text-color:                  #E5E7EB;
+    cursor:                      pointer;
+}
+
+element normal.normal {
+    background-color:            transparent;
+    text-color:                  #E5E7EB;
+}
+
+element normal.urgent {
+    background-color:            rgba(239, 68, 68, 0.25);
+    text-color:                  #FFFFFF;
+}
+
+element normal.active {
+    background-color:            rgba(255, 255, 255, 0.08);
+    text-color:                  #FFFFFF;
+}
+
+element-text selected,
+element selected.normal {
+    background-color:            rgba(255, 255, 255, 0.16);
+    border:                      1px solid;
+    border-color:                rgba(255, 255, 255, 0.22);
+    border-radius:               14px;
+    text-color:                  #FFFFFF;
+}
+
+element selected.urgent {
+    background-color:            rgba(239, 68, 68, 0.40);
+    border:                      1px solid;
+    border-color:                rgba(255, 255, 255, 0.25);
+    border-radius:               14px;
+    text-color:                  #FFFFFF;
+}
+
+element selected.active {
+    background-color:            rgba(255, 255, 255, 0.22);
+    border:                      1px solid;
+    border-color:                rgba(255, 255, 255, 0.25);
+    border-radius:               14px;
+    text-color:                  #FFFFFF;
+}
+
+element-text {
+    background-color:            transparent;
+    text-color:                  inherit;
+    vertical-align:              0.5;
+    horizontal-align:            0.0;
+    cursor:                      inherit;
+}

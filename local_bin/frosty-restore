@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# ==============================================================================
+# ❄️ Frosty Hyprland — Complete State Restore Tool
+# Restores all configuration files, themes, scripts, services and schemes
+# ==============================================================================
+
+set -euo pipefail
+
+SNAPSHOTS_DIR="$HOME/.snapshots"
+TARGET_NAME="${1:-frosty-hyprland-insane}"
+RESTORE_SCRIPT="$SNAPSHOTS_DIR/$TARGET_NAME/restore.sh"
+
+if [ ! -f "$RESTORE_SCRIPT" ]; then
+    RESTORE_SCRIPT="$SNAPSHOTS_DIR/frosty-hyprland/restore.sh"
+fi
+
+if [ ! -f "$RESTORE_SCRIPT" ]; then
+    echo "❌ Error: Restore script not found in $SNAPSHOTS_DIR"
+    exit 1
+fi
+
+echo "❄️ Executing Frosty Hyprland restoration from $TARGET_NAME..."
+bash "$RESTORE_SCRIPT"

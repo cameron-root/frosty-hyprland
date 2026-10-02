@@ -1,0 +1,12 @@
+# Frosty Hyprland Git Ignore
+*.log
+*.tmp
+*.cache
+__pycache__/
+*.py[cod]
+.DS_Store
+*.swp
+*.swo
+
+# Ignore user state backups if created inside repo
+frosty_backup_*/

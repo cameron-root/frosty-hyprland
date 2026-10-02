@@ -1,0 +1,133 @@
+/* ---- 💫 Caelestia iOS Frosted Glass — Clipboard Manager ---- */
+/* Font: JetBrains Mono 13 | Radius: 22px | Blur bg: rgba(15,17,26,0.68) */
+
+configuration {
+  modi:                 "dmenu";
+  show-icons:           false;
+  display-dmenu:        " Clipboard";
+  font:                 "JetBrainsMono Nerd Font 13";
+}
+
+/* ---- Root / Window ---- */
+* {
+  bg-base:        rgba(15, 17, 26, 0.68);
+  bg-raised:      rgba(25, 30, 45, 0.82);
+  bg-selected:    rgba(56, 139, 253, 0.28);
+  bg-input:       rgba(20, 24, 36, 0.72);
+
+  border-col:     rgba(255, 255, 255, 0.18);
+  border-sel:     rgba(56, 139, 253, 0.65);
+
+  fg-primary:     rgba(253, 248, 254, 1);
+  fg-muted:       rgba(180, 185, 205, 0.75);
+  fg-placeholder: rgba(150, 155, 175, 0.55);
+
+  accent:         #388bfd;
+  accent-purple:  #9A5BDD;
+
+  background-color: transparent;
+  text-color:       @fg-primary;
+}
+
+window {
+  width:            55%;
+  border-radius:    22px;
+  background-color: @bg-base;
+  border:           1px solid @border-col;
+  padding:          0;
+}
+
+/* ---- Main Box ---- */
+mainbox {
+  background-color: transparent;
+  spacing:          0;
+  padding:          12px;
+  children:         [ "inputbar", "listview" ];
+}
+
+/* ---- Search / Input Bar ---- */
+inputbar {
+  background-color: @bg-input;
+  border-radius:    16px;
+  border:           1px solid @border-col;
+  margin:           0 0 10px 0;
+  padding:          10px 14px;
+  spacing:          10px;
+  children:         [ "prompt", "entry" ];
+}
+
+prompt {
+  background-color: transparent;
+  text-color:       @accent;
+  font:             "JetBrainsMono Nerd Font 14";
+  vertical-align:   0.5;
+}
+
+entry {
+  background-color: transparent;
+  text-color:       @fg-primary;
+  placeholder:      "Search clipboard…";
+  placeholder-color: @fg-placeholder;
+  vertical-align:   0.5;
+}
+
+/* ---- List View ---- */
+listview {
+  background-color: transparent;
+  columns:          1;
+  lines:            10;
+  fixed-height:     true;
+  spacing:          4px;
+  scrollbar:        false;
+  cycle:            true;
+  padding:          2px 0;
+}
+
+/* ---- Elements (rows) ---- */
+element {
+  background-color: transparent;
+  border-radius:    12px;
+  padding:          9px 14px;
+  spacing:          0;
+  orientation:      horizontal;
+  cursor:           pointer;
+  transition:       all 120ms ease;
+}
+
+element normal.normal {
+  background-color: transparent;
+  text-color:       @fg-primary;
+}
+
+element alternate.normal {
+  background-color: transparent;
+  text-color:       @fg-primary;
+}
+
+element selected.normal {
+  background-color: @bg-selected;
+  border:           1px solid @border-sel;
+  border-radius:    12px;
+  text-color:       @fg-primary;
+}
+
+element-icon {
+  size: 0px;
+}
+
+element-text {
+  background-color: transparent;
+  text-color:       inherit;
+  horizontal-align: 0.0;
+  vertical-align:   0.5;
+  margin:           0;
+  padding:          0;
+}
+
+/* ---- Scrollbar ---- */
+scrollbar {
+  handle-color:     rgba(255, 255, 255, 0.18);
+  background-color: transparent;
+  border-radius:    4px;
+  width:            4px;
+}

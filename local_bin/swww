@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+# High-reliability swww compatibility wrapper backed by hyprpaper & systemd
+
+case "$1" in
+  init|daemon)
+    systemctl --user start hyprpaper 2>/dev/null || true
+    ;;
+  query)
+    CURRENT=$(grep "path =" "$HOME/.config/hypr/hyprpaper.conf" 2>/dev/null | awk '{print $3}' | head -n1)
+    if [ -z "$CURRENT" ]; then
+      CURRENT=$(cat "$HOME/.config/hypr/wallpaper_effects/.wallpaper_current" 2>/dev/null || true)
+    fi
+    echo "Monitor eDP-1: 1366x768, scale: 1, currently displaying: image: $CURRENT"
+    ;;
+  img)
+    IMG=""
+    for arg in "$@"; do
+      if [ -f "$arg" ]; then
+        IMG="$(realpath "$arg")"
+      fi
+    done
+
+    if [ -n "$IMG" ]; then
+      # Ensure service is running
+      if ! systemctl --user is-active --quiet hyprpaper; then
+        systemctl --user start hyprpaper
+        sleep 0.3
+      fi
+
+      # Persist to hyprpaper.conf
+      cat << EOF > "$HOME/.config/hypr/hyprpaper.conf"
+wallpaper {
+    monitor = eDP-1
+    path = $IMG
+}
+
+splash = false
+ipc = on
+EOF
+
+      # Apply dynamically via Hyprland IPC
+      hyprctl hyprpaper wallpaper "eDP-1,$IMG" 2>/dev/null || true
+
+      # Update state tracking for JaKooLit and Rofi
+      mkdir -p "$HOME/.config/hypr/wallpaper_effects"
+      echo "$IMG" > "$HOME/.config/hypr/wallpaper_effects/.wallpaper_current"
+      mkdir -p "$HOME/.config/rofi"
+      ln -sf "$IMG" "$HOME/.config/rofi/.current_wallpaper" 2>/dev/null || true
+    fi
+    ;;
+  kill)
+    # No-op to avoid breaking daemon
+    ;;
+  *)
+    ;;
+esac

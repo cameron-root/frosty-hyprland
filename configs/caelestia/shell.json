@@ -1,0 +1,77 @@
+{
+    "appearance": {
+        "rounding": {
+            "scale": 1.3
+        },
+        "transparency": {
+            "base": 0.52,
+            "enabled": true,
+            "layers": 0.26
+        }
+    },
+    "background": {
+        "enabled": true,
+        "wallpaperEnabled": false
+    },
+    "bar": {
+        "statusIcons": [
+            {
+                "enabled": true,
+                "id": "lockStatus"
+            },
+            {
+                "enabled": false,
+                "id": "audio"
+            },
+            {
+                "enabled": false,
+                "id": "microphone"
+            },
+            {
+                "enabled": false,
+                "id": "kbLayout"
+            },
+            {
+                "enabled": true,
+                "id": "network"
+            },
+            {
+                "enabled": true,
+                "id": "bluetooth"
+            },
+            {
+                "enabled": true,
+                "id": "battery"
+            }
+        ],
+        "tray": {
+            "hiddenIcons": [
+                "nm-applet",
+                "blueman",
+                "nm_applet"
+            ]
+        }
+    },
+    "border": {
+        "rounding": 30,
+        "smoothing": 24,
+        "thickness": 10
+    },
+    "dashboard": {
+        "enabled": true,
+        "showOnHover": true
+    },
+    "launcher": {
+        "showOnHover": true
+    },
+    "osd": {
+        "enableBrightness": true,
+        "enableMicrophone": true,
+        "enabled": true,
+        "hideDelay": 2000
+    },
+    "sidebar": {
+        "enabled": true,
+        "showOnHover": true
+    }
+}

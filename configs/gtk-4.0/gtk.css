@@ -1,0 +1,788 @@
+/* ================================================================
+   💫 Caelestia iOS Frosted Glass — GTK3 Custom CSS
+   Matches the global iOS liquid glass bubble aesthetic
+   ================================================================ */
+@import url("accent.css");
+
+/* ── Libadwaita Frosty Glass Color Palette ── */
+@define-color window_bg_color rgba(13, 16, 24, 0.90);
+@define-color window_fg_color #f0f6fc;
+@define-color view_bg_color rgba(13, 16, 24, 0.92);
+@define-color view_fg_color #f0f6fc;
+@define-color headerbar_bg_color rgba(16, 20, 32, 0.80);
+@define-color headerbar_fg_color #ffffff;
+@define-color headerbar_border_color rgba(255, 255, 255, 0.08);
+@define-color headerbar_backdrop_color rgba(13, 16, 24, 0.85);
+@define-color sidebar_bg_color rgba(10, 13, 20, 0.86);
+@define-color sidebar_fg_color #f0f6fc;
+@define-color sidebar_backdrop_color rgba(9, 11, 18, 0.88);
+@define-color sidebar_border_color rgba(255, 255, 255, 0.08);
+@define-color card_bg_color rgba(255, 255, 255, 0.05);
+@define-color card_fg_color #f0f6fc;
+@define-color card_border_color rgba(255, 255, 255, 0.10);
+@define-color popover_bg_color rgba(18, 22, 34, 0.95);
+@define-color popover_fg_color #f0f6fc;
+@define-color dialog_bg_color rgba(16, 20, 32, 0.95);
+@define-color dialog_fg_color #f0f6fc;
+
+/* ── Base Window ── */
+window, .window {
+  background-color: rgba(13, 16, 24, 0.92);
+  color: #f0f6fc;
+}
+
+/* ── Header Bar (macOS-style slim frosted bar) ── */
+headerbar,
+.titlebar,
+.header-bar {
+  background: rgba(16, 20, 32, 0.88);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.30);
+  padding: 4px 12px;
+  min-height: 42px;
+  color: #f0f6fc;
+}
+
+headerbar .title {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+headerbar .subtitle {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.85em;
+}
+
+/* ── Buttons ── */
+button {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  color: #f0f6fc;
+  padding: 6px 14px;
+  transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: none;
+}
+
+button:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+}
+
+button:active {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+button.suggested-action {
+  background: #388bfd;
+  border-color: #388bfd;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+button.suggested-action:hover {
+  background: #4fa6ff;
+  border-color: #4fa6ff;
+}
+
+button.destructive-action {
+  background: rgba(255, 95, 86, 0.20);
+  border-color: rgba(255, 95, 86, 0.45);
+  color: #ff7b72;
+}
+
+button.destructive-action:hover {
+  background: rgba(255, 95, 86, 0.32);
+}
+
+/* ── Window Control Buttons ── */
+.titlebar button.close { background: #ff5f56; }
+.titlebar button.minimize { background: #febc2e; }
+.titlebar button.maximize { background: #28c840; }
+.titlebar button.close,
+.titlebar button.minimize,
+.titlebar button.maximize {
+  border-radius: 50%;
+  min-width: 14px;
+  min-height: 14px;
+  padding: 0;
+  border: none;
+}
+
+/* ── Text Entries / Inputs ── */
+entry,
+spinbutton,
+.entry {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  color: #f0f6fc;
+  padding: 6px 12px;
+  caret-color: #388bfd;
+  transition: all 200ms ease;
+}
+
+entry:focus,
+entry:focus-within {
+  background: rgba(18, 22, 35, 0.95);
+  border-color: #388bfd;
+  box-shadow: 0 0 0 3px rgba(56, 139, 253, 0.22);
+}
+
+entry placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+/* ── Search Bars ── */
+searchbar {
+  background: rgba(13, 16, 24, 0.82);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+searchbar > revealer > box {
+  padding: 6px 12px;
+}
+
+/* ── Selection Highlight ── */
+selection,
+*:selected {
+  background: rgba(56, 139, 253, 0.38);
+  color: #ffffff;
+}
+
+/* ── Sidebar (File Managers, Settings) ── */
+.sidebar,
+placessidebar,
+stacksidebar {
+  background: rgba(13, 16, 24, 0.90);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sidebar row,
+placessidebar row {
+  border-radius: 10px;
+  margin: 2px 6px;
+  padding: 4px 8px;
+  color: rgba(255, 255, 255, 0.72);
+  transition: background 150ms ease;
+}
+
+.sidebar row:hover,
+placessidebar row:hover {
+  background: rgba(255, 255, 255, 0.10);
+  color: #ffffff;
+}
+
+.sidebar row:selected,
+placessidebar row:selected {
+  background: rgba(56, 139, 253, 0.28);
+  color: #ffffff;
+}
+
+/* ── List Rows ── */
+listbox row,
+.list row {
+  border-radius: 10px;
+  margin: 2px 4px;
+  padding: 6px 10px;
+  color: rgba(255, 255, 255, 0.80);
+  transition: background 150ms ease;
+  border: none;
+}
+
+listbox row:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+listbox row:selected {
+  background: rgba(56, 139, 253, 0.25);
+  color: #ffffff;
+}
+
+/* ── Menus & Popovers ── */
+menu,
+.menu,
+popover,
+.popover > contents {
+  background: rgba(20, 25, 38, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.60);
+  padding: 6px;
+  color: #f0f6fc;
+}
+
+menuitem,
+popover modelbutton {
+  border-radius: 10px;
+  padding: 7px 12px;
+  margin: 2px 0;
+  color: #f0f6fc;
+  transition: background 120ms ease;
+}
+
+menuitem:hover,
+popover modelbutton:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+}
+
+separator,
+menu separator {
+  background: rgba(255, 255, 255, 0.10);
+  min-height: 1px;
+  margin: 4px 6px;
+}
+
+/* ── Notebook Tabs ── */
+notebook > header tab {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 12px 12px 0 0;
+  padding: 6px 16px;
+  margin: 0 2px;
+  color: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-bottom: none;
+  transition: all 180ms ease;
+}
+
+notebook > header tab:checked {
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+/* ── Scrollbars ── */
+scrollbar slider {
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 10px;
+  min-width: 6px;
+  min-height: 6px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+  transition: all 200ms ease;
+}
+
+scrollbar slider:hover {
+  background: rgba(255, 255, 255, 0.38);
+}
+
+scrollbar {
+  background: transparent;
+}
+
+scrollbar.vertical { border-left: none; }
+scrollbar.horizontal { border-top: none; }
+
+/* ── Switch Toggles ── */
+switch {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 50px;
+  transition: all 200ms ease;
+}
+
+switch:checked {
+  background: #388bfd;
+  border-color: #388bfd;
+}
+
+switch slider {
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+/* ── Check / Radio Buttons ── */
+checkbutton check,
+radiobutton radio {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  transition: all 180ms ease;
+}
+
+checkbutton check:checked,
+radiobutton radio:checked {
+  background: #388bfd;
+  border-color: #388bfd;
+  color: #ffffff;
+}
+
+/* ── Progress / Scale ── */
+progressbar trough,
+scale trough {
+  background: rgba(255, 255, 255, 0.10);
+  border-radius: 10px;
+  min-height: 4px;
+}
+
+progressbar progress,
+scale highlight {
+  background: linear-gradient(90deg, #388bfd, #9A5BDD);
+  border-radius: 10px;
+}
+
+scale slider {
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.40);
+}
+
+/* ── Tooltips ── */
+tooltip {
+  background: rgba(20, 25, 38, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+  color: #f0f6fc;
+  padding: 6px 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.50);
+}
+
+/* ── Status Bar ── */
+statusbar {
+  background: rgba(13, 16, 24, 0.82);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.60);
+  font-size: 0.85em;
+}
+
+/* ── Frame / Cards ── */
+frame,
+.card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 16px;
+  padding: 8px;
+}
+
+/* ── Infobar ── */
+infobar.info { background: rgba(56, 139, 253, 0.15); border-color: rgba(56, 139, 253, 0.35); }
+infobar.warning { background: rgba(254, 188, 46, 0.15); border-color: rgba(254, 188, 46, 0.35); }
+infobar.error { background: rgba(255, 95, 86, 0.15); border-color: rgba(255, 95, 86, 0.35); }
+
+/* ================================================================
+   📂 Thunar File Manager — iOS Frosted Glass Theme
+   ================================================================ */
+
+/* Window Background */
+.thunar,
+ThunarWindow {
+  background-color: rgba(13, 16, 24, 0.94);
+  color: #f0f6fc;
+}
+
+/* Toolbar & Breadcrumbs */
+ThunarWindow toolbar {
+  background: rgba(18, 22, 34, 0.85);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 6px 12px;
+}
+
+ThunarWindow toolbar button {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 10px;
+  padding: 4px 8px;
+  margin: 0 2px;
+}
+
+ThunarWindow toolbar button:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.20);
+  color: #ffffff;
+}
+
+/* Pathbar / Breadcrumb Pill Buttons */
+ThunarPathBar button {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 3px 12px;
+  margin: 0 2px;
+  font-weight: 500;
+  color: #f0f6fc;
+}
+
+ThunarPathBar button:hover {
+  background: rgba(56, 139, 253, 0.25);
+  border-color: rgba(56, 139, 253, 0.50);
+  color: #ffffff;
+}
+
+ThunarPathBar button:checked,
+ThunarPathBar button:active {
+  background: #388bfd;
+  border-color: #388bfd;
+  color: #ffffff;
+}
+
+/* Sidebar / Places Panel (Frosted translucency + rounded pills) */
+ThunarWindow .sidebar,
+ThunarWindow .shortcuts-pane,
+ThunarWindow placessidebar {
+  background-color: rgba(11, 14, 22, 0.90);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+ThunarWindow .sidebar treeview {
+  background-color: transparent;
+  color: #d0d7de;
+}
+
+ThunarWindow .sidebar treeview:selected {
+  background-color: rgba(56, 139, 253, 0.32);
+  border-radius: 10px;
+  color: #ffffff;
+}
+
+ThunarWindow .sidebar row {
+  border-radius: 10px;
+  padding: 5px 8px;
+  margin: 2px 6px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+ThunarWindow .sidebar row:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+ThunarWindow .sidebar row:selected {
+  background: rgba(56, 139, 253, 0.30);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* Main View Area */
+ThunarWindow .standard-view,
+ThunarWindow .view {
+  background-color: rgba(13, 16, 24, 0.94);
+  color: #f0f6fc;
+}
+
+/* Icon View - Rounded Squircle Pill Selection */
+ThunarIconView .view,
+ThunarWindow .view:selected {
+  background-color: rgba(56, 139, 253, 0.32);
+  border-radius: 14px;
+  color: #ffffff;
+}
+
+/* Details List View */
+ThunarWindow treeview.view {
+  background-color: rgba(13, 16, 24, 0.94);
+  border: none;
+}
+
+ThunarWindow treeview.view row {
+  border-radius: 8px;
+  padding: 4px;
+  margin: 1px 4px;
+}
+
+ThunarWindow treeview.view row:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+ThunarWindow treeview.view row:selected {
+  background-color: rgba(56, 139, 253, 0.28);
+  color: #ffffff;
+}
+
+/* Status Bar */
+ThunarStatusBar,
+ThunarWindow statusbar {
+  background: rgba(14, 18, 28, 0.88);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.85em;
+  padding: 4px 12px;
+}
+
+/* ================================================================
+   ❄️ Nautilus File Manager (GNOME Files) — Frosty Settings Theme
+   Matches Caelestia Nexus & Frosty Settings Frosted Glass Aesthetic
+   ================================================================ */
+
+/* ── 1. Main Window ── */
+.nautilus-window,
+window.nautilus-window,
+window.background.nautilus-window {
+  background-color: rgba(13, 16, 24, 0.90);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.50);
+  color: #f0f6fc;
+}
+
+/* ── 2. Top Headerbar & Navigation Toolbar ── */
+.nautilus-window headerbar,
+.nautilus-window .top-bar {
+  background: rgba(16, 20, 32, 0.82);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.25);
+  min-height: 48px;
+  padding: 0 10px;
+  color: #ffffff;
+}
+
+.nautilus-window headerbar button {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  color: #f0f6fc;
+  min-height: 32px;
+  min-width: 32px;
+  padding: 4px 10px;
+  margin: 0 2px;
+  transition: all 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: none;
+}
+
+.nautilus-window headerbar button:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.24);
+  color: #ffffff;
+}
+
+.nautilus-window headerbar button:checked,
+.nautilus-window headerbar button:active {
+  background: @accent_bg_color;
+  border-color: @accent_bg_color;
+  color: @accent_fg_color;
+  box-shadow: 0 2px 8px alpha(@accent_color, 0.40);
+}
+
+/* ── 3. Breadcrumb Path Bar (Capsule Pill Flow) ── */
+.nautilus-window .nautilus-pathbar,
+.nautilus-window .path-bar {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 2px 4px;
+  margin: 4px 6px;
+}
+
+.nautilus-window .nautilus-path-button,
+.nautilus-window .path-bar button {
+  background: transparent;
+  border: none;
+  border-radius: 12px;
+  padding: 4px 12px;
+  margin: 0 1px;
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: 500;
+  transition: all 160ms ease;
+}
+
+.nautilus-window .nautilus-path-button:hover,
+.nautilus-window .path-bar button:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.nautilus-window .nautilus-path-button.current-dir,
+.nautilus-window .path-bar button:checked {
+  background: @accent_bg_color;
+  color: @accent_fg_color;
+  font-weight: 600;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px alpha(@accent_color, 0.35);
+}
+
+/* ── 4. Places Sidebar (Frosted Drawer with Pill Selection) ── */
+.nautilus-window .sidebar,
+.nautilus-window placessidebar,
+.nautilus-window navigation-sidebar,
+.nautilus-window .navigation-sidebar {
+  background-color: rgba(10, 13, 20, 0.88);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.nautilus-window navigation-sidebar listview,
+.nautilus-window placessidebar listview {
+  background: transparent;
+  padding: 6px 4px;
+}
+
+.nautilus-window navigation-sidebar row,
+.nautilus-window placessidebar row,
+.nautilus-window .sidebar row {
+  border-radius: 12px;
+  margin: 2px 6px;
+  padding: 6px 12px;
+  color: rgba(255, 255, 255, 0.78);
+  transition: all 160ms ease;
+  border: 1px solid transparent;
+}
+
+.nautilus-window navigation-sidebar row:hover,
+.nautilus-window placessidebar row:hover,
+.nautilus-window .sidebar row:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.10);
+  color: #ffffff;
+}
+
+.nautilus-window navigation-sidebar row:selected,
+.nautilus-window placessidebar row:selected,
+.nautilus-window .sidebar row:selected {
+  background: @accent_bg_color;
+  border-color: @accent_bg_color;
+  color: @accent_fg_color;
+  font-weight: 600;
+  box-shadow: 0 4px 14px alpha(@accent_color, 0.35);
+}
+
+/* Category Headers in Sidebar */
+.nautilus-window navigation-sidebar separator,
+.nautilus-window placessidebar separator {
+  background: rgba(255, 255, 255, 0.08);
+  min-height: 1px;
+  margin: 6px 10px;
+}
+
+/* ── 5. Main Files View (Grid View & List View) ── */
+.nautilus-window .view,
+.nautilus-window gridview,
+.nautilus-window columnview,
+.nautilus-window .nautilus-list-view {
+  background-color: transparent;
+  color: #f0f6fc;
+}
+
+/* Grid View Items (Frosted Glass Cards) */
+.nautilus-window gridview > child,
+.nautilus-window .nautilus-grid-cell,
+.nautilus-window .nautilus-view-item {
+  border-radius: 16px;
+  padding: 10px 8px;
+  margin: 4px;
+  border: 1px solid transparent;
+  transition: all 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nautilus-window gridview > child:hover,
+.nautilus-window .nautilus-grid-cell:hover,
+.nautilus-window .nautilus-view-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.30);
+}
+
+.nautilus-window gridview > child:selected,
+.nautilus-window .nautilus-grid-cell:selected,
+.nautilus-window .nautilus-view-item:selected {
+  background: alpha(@accent_color, 0.24);
+  border: 1px solid @accent_color;
+  box-shadow: 0 4px 18px alpha(@accent_color, 0.38);
+  color: #ffffff;
+}
+
+/* List / Column View Rows */
+.nautilus-window columnview row,
+.nautilus-window .nautilus-view-cell {
+  border-radius: 10px;
+  margin: 2px 6px;
+  padding: 6px 12px;
+  border: 1px solid transparent;
+  transition: all 150ms ease;
+}
+
+.nautilus-window columnview row:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.nautilus-window columnview row:selected {
+  background: alpha(@accent_color, 0.28);
+  border-color: alpha(@accent_color, 0.60);
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.nautilus-window columnview header button {
+  background: rgba(16, 20, 32, 0.60);
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.65);
+  font-weight: 500;
+}
+
+/* ── 6. Search & Filter Bar ── */
+.nautilus-window searchbar,
+.nautilus-window .nautilus-query-editor {
+  background: rgba(16, 20, 32, 0.88);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 8px 14px;
+}
+
+.nautilus-window searchbar entry {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  padding: 8px 14px;
+  color: #f0f6fc;
+}
+
+.nautilus-window searchbar entry:focus {
+  background: rgba(20, 25, 38, 0.95);
+  border-color: @accent_color;
+  box-shadow: 0 0 0 3px alpha(@accent_color, 0.25);
+}
+
+/* ── 7. Floating Bar Status (Capsule Indicator) ── */
+.nautilus-window .floating-bar {
+  background: rgba(18, 22, 34, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  color: #f0f6fc;
+  padding: 6px 14px;
+  margin: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+/* ── 8. Context Menus & Popovers ── */
+.nautilus-window popover contents,
+.nautilus-window .popover > contents {
+  background: rgba(18, 22, 34, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.60);
+  padding: 6px;
+  color: #f0f6fc;
+}
+
+.nautilus-window popover modelbutton {
+  border-radius: 10px;
+  padding: 7px 12px;
+  margin: 2px 0;
+  color: #f0f6fc;
+  transition: background 120ms ease;
+}
+
+.nautilus-window popover modelbutton:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+}
+
+/* ── 9. Tabs ── */
+.nautilus-window tabbar tab {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px 12px 0 0;
+  padding: 6px 16px;
+  margin: 0 2px;
+  color: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: none;
+  transition: all 180ms ease;
+}
+
+.nautilus-window tabbar tab:checked {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.20);
+  color: #ffffff;
+}
+

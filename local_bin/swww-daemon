@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# swww-daemon compatibility wrapper backed by systemd hyprpaper
+systemctl --user start hyprpaper 2>/dev/null || true
+exit 0
