@@ -50,8 +50,9 @@ Item {
     Component.onCompleted: Qt.callLater(() => Apps) // Load apps on init
 
     Behavior on offsetScale {
-        Anim {
-            type: Anim.FastSpatial
+        NumberAnimation {
+            duration: 320
+            easing.type: Easing.OutCubic
         }
     }
 

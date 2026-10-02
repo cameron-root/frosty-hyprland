@@ -22,25 +22,25 @@ Item {
                 component: dashComponent,
                 iconName: "dashboard",
                 text: Tr.tr("Dashboard"),
-                enabled: Config.dashboard.showDashboard
+                enabled: Config.dashboard.showDashboard !== false
             },
             {
                 component: mediaComponent,
                 iconName: "queue_music",
                 text: Tr.tr("Media"),
-                enabled: Config.dashboard.showMedia
+                enabled: Config.dashboard.showMedia !== false
             },
             {
                 component: performanceComponent,
                 iconName: "speed",
                 text: Tr.tr("Performance"),
-                enabled: Config.dashboard.showPerformance
+                enabled: Config.dashboard.showPerformance !== false
             },
             {
                 component: weatherComponent,
                 iconName: "cloud",
                 text: Tr.tr("Weather"),
-                enabled: Config.dashboard.showWeather
+                enabled: Config.dashboard.showWeather !== false
             }
         ];
         return allTabs.filter(tab => tab.enabled);

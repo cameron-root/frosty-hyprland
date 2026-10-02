@@ -59,7 +59,19 @@
     },
     "dashboard": {
         "enabled": true,
-        "showOnHover": true
+        "showOnHover": true,
+        "showDashboard": true,
+        "showMedia": true,
+        "showPerformance": true,
+        "showWeather": true,
+        "performance": {
+            "showBattery": true,
+            "showCpu": true,
+            "showGpu": true,
+            "showMemory": true,
+            "showNetwork": true,
+            "showStorage": true
+        }
     },
     "launcher": {
         "showOnHover": true

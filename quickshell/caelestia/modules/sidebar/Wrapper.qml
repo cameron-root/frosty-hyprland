@@ -33,8 +33,9 @@ Item {
     opacity: 1 - offsetScale
 
     Behavior on offsetScale {
-        Anim {
-            type: Anim.FastSpatial
+        NumberAnimation {
+            duration: 320
+            easing.type: Easing.OutCubic
         }
     }
 
