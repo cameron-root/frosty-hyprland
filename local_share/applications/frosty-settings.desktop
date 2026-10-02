@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Frosty Settings
+GenericName=Frosty Hyprland Control Center
+Comment=Customize Frosty Hyprland accents, glass blur, window opacity, and tiling
+Exec=caelestia nexus frosty
+Icon=preferences-desktop-theme
+Terminal=false
+Type=Application
+Categories=Settings;DesktopSettings;Utility;
+Keywords=frosty;hyprland;settings;caelestia;blur;accent;transparency;decorations;tiling;
+StartupNotify=true
+StartupWMClass=org.quickshell

@@ -245,10 +245,11 @@ log_info "Deploying pre-compiled Qt6 plugins to ~/.local/lib..."
 mkdir -p "$TARGET_HOME/.local/lib"
 cp -r "$SCRIPT_DIR/local_lib/"* "$TARGET_HOME/.local/lib/"
 
-# D. ~/.local/share (Caelestia color schemes)
-log_info "Deploying Caelestia schemes to ~/.local/share/caelestia..."
+# D. ~/.local/share (Caelestia color schemes & desktop entry)
+log_info "Deploying Caelestia schemes and desktop entry to ~/.local/share..."
 mkdir -p "$TARGET_HOME/.local/share"
 cp -r "$SCRIPT_DIR/local_share/"* "$TARGET_HOME/.local/share/"
+update-desktop-database "$TARGET_HOME/.local/share/applications" 2>/dev/null || true
 
 # E. ~/.local/etc/xdg/quickshell (Caelestia desktop shell)
 log_info "Deploying Quickshell Caelestia shell module..."
