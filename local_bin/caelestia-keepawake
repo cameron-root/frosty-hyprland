@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# ==============================================================================
+# ☕ Caelestia Keep Awake Inhibitor Daemon
+# Inhibits hypridle (DBus ScreenSaver) and systemd/logind (systemd-inhibit)
+# ==============================================================================
+
+COOKIE=""
+INHIBIT_PID=""
+
+cleanup() {
+    trap - SIGINT SIGTERM SIGHUP EXIT
+    if [[ -n "$INHIBIT_PID" ]]; then
+        kill -TERM "$INHIBIT_PID" 2>/dev/null || true
+        wait "$INHIBIT_PID" 2>/dev/null || true
+    fi
+    if [[ -n "$COOKIE" && "$COOKIE" =~ ^[0-9]+$ ]]; then
+        busctl --user call org.freedesktop.ScreenSaver /ScreenSaver org.freedesktop.ScreenSaver UnInhibit u "$COOKIE" >/dev/null 2>&1 || true
+    fi
+    exit 0
+}
+
+trap cleanup SIGINT SIGTERM SIGHUP EXIT
+
+# Inhibit hypridle via DBus ScreenSaver interface
+COOKIE_OUT=$(busctl --user call org.freedesktop.ScreenSaver /ScreenSaver org.freedesktop.ScreenSaver Inhibit ss "Caelestia" "Keep Awake" 2>/dev/null || true)
+if [[ "$COOKIE_OUT" =~ u\ ([0-9]+) ]]; then
+    COOKIE="${BASH_REMATCH[1]}"
+fi
+
+# Run systemd-inhibit to prevent systemd/logind idle and suspend
+systemd-inhibit --what=idle:sleep --who="Caelestia Keep Awake" --why="User enabled Keep Awake" sleep infinity &
+INHIBIT_PID=$!
+
+wait "$INHIBIT_PID"
+cleanup
