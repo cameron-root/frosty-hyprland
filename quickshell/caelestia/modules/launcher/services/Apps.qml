@@ -8,10 +8,7 @@ import qs.utils
 Searcher {
     id: root
 
-    signal appLaunched(DesktopEntry entry)
-
     function launch(entry: DesktopEntry): void {
-        root.appLaunched(entry);
         appDb.incrementFrequency(entry.id);
 
         if (entry.runInTerminal)

@@ -12,7 +12,6 @@ import qs.components
 import qs.components.containers
 import qs.services
 import qs.modules.bar
-import qs.modules.launcher.services as LauncherServices
 
 StyledWindow {
     id: root
@@ -248,91 +247,6 @@ StyledWindow {
 
             Behavior on extraWidth {
                 Anim {}
-            }
-        }
-
-        BlobRect {
-            id: mitosisCell
-
-            group: blobGroup
-            radius: Tokens.rounding.extraLarge
-            deformScale: (0.4 * Config.appearance.deformScale) / 10000
-
-            property real targetX: root.width / 2
-            property real bulgeHeight: 0
-            property real bulgeWidth: 0
-
-            x: targetX - implicitWidth / 2
-            y: root.height - root.borderThickness - implicitHeight + 15
-            implicitWidth: bulgeWidth
-            implicitHeight: bulgeHeight
-
-            function trigger(spawnX: var): void {
-                if (mitosisAnim.running)
-                    return;
-                if (typeof spawnX === "number" && spawnX > 0)
-                    targetX = spawnX;
-                else
-                    targetX = root.width / 2;
-
-                mitosisAnim.restart();
-            }
-
-            SequentialAnimation {
-                id: mitosisAnim
-
-                ParallelAnimation {
-                    NumberAnimation {
-                        target: mitosisCell
-                        property: "bulgeHeight"
-                        from: 0
-                        to: 55
-                        duration: 180
-                        easing.type: Easing.OutBack
-                        easing.overshoot: 1.6
-                    }
-                    NumberAnimation {
-                        target: mitosisCell
-                        property: "bulgeWidth"
-                        from: 80
-                        to: 260
-                        duration: 180
-                        easing.type: Easing.OutBack
-                        easing.overshoot: 1.2
-                    }
-                }
-                ParallelAnimation {
-                    NumberAnimation {
-                        target: mitosisCell
-                        property: "bulgeHeight"
-                        from: 55
-                        to: 0
-                        duration: 140
-                        easing.type: Easing.InQuad
-                    }
-                    NumberAnimation {
-                        target: mitosisCell
-                        property: "bulgeWidth"
-                        from: 260
-                        to: 0
-                        duration: 140
-                        easing.type: Easing.InQuad
-                    }
-                }
-            }
-
-            Connections {
-                target: Hypr
-                function onWindowOpened(): void {
-                    mitosisCell.trigger();
-                }
-            }
-
-            Connections {
-                target: LauncherServices.Apps
-                function onAppLaunched(): void {
-                    mitosisCell.trigger();
-                }
             }
         }
     }

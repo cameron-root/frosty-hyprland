@@ -39,7 +39,6 @@ Singleton {
     property string lastSpecialWorkspace: ""
 
     signal configReloaded
-    signal windowOpened(string data)
 
     function dispatch(request: string): void {
         Hyprland.dispatch(request);
@@ -134,8 +133,6 @@ Singleton {
                 Hyprland.refreshWorkspaces();
                 Hyprland.refreshMonitors();
             } else if (["openwindow", "closewindow", "movewindow"].includes(n)) {
-                if (n === "openwindow")
-                    root.windowOpened(event.data);
                 Hyprland.refreshToplevels();
                 Hyprland.refreshWorkspaces();
             } else if (n.includes("mon")) {
