@@ -15,14 +15,16 @@ Singleton {
     property alias enabled: props.enabled
     readonly property alias enabledSince: props.enabledSince
 
-    readonly property bool isBatteryLow: UPower.onBattery && UPower.displayDevice.percentage <= 0.20
+    readonly property bool isBatteryLow: UPower.displayDevice.ready && UPower.onBattery && UPower.displayDevice.percentage <= 0.20
 
     function checkBatteryLevel(): void {
+        if (!UPower.displayDevice.ready)
+            return;
         if (props.enabled && root.isBatteryLow) {
             props.enabled = false;
             Toaster.toast(
                 Tr.tr("Keep Awake Disabled"),
-                Tr.tr("Battery dropped to 20%. Power saving restored."),
+                Tr.tr("Battery reached 20%. Power saving and screen lock restored."),
                 "battery_alert",
                 Toast.Warning
             );
@@ -31,7 +33,7 @@ Singleton {
 
     onEnabledChanged: {
         if (enabled) {
-            if (root.isBatteryLow) {
+            if (UPower.displayDevice.ready && root.isBatteryLow) {
                 props.enabled = false;
                 Toaster.toast(
                     Tr.tr("Cannot Keep Awake"),
@@ -44,7 +46,7 @@ Singleton {
             props.enabledSince = new Date();
             Toaster.toast(
                 Tr.tr("Keep Awake Active"),
-                Tr.tr("System will stay awake until battery reaches 20%."),
+                Tr.tr("Screen lock and sleep are disabled until battery reaches 20%."),
                 "coffee"
             );
         } else {
@@ -79,14 +81,14 @@ Singleton {
         reloadableId: "idleInhibitor"
     }
 
-    // 1. Systemd and hypridle inhibition via caelestia-keepawake
+    // Freeze hypridle and hold systemd-inhibit
     Process {
         id: inhibitProc
         command: ["caelestia-keepawake"]
         running: props.enabled
     }
 
-    // 2. Wayland protocol idle inhibitor
+    // Wayland protocol idle inhibitor
     IdleInhibitor {
         enabled: props.enabled
         window: PanelWindow {

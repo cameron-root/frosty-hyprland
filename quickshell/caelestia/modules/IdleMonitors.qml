@@ -26,7 +26,7 @@ Scope {
     }
 
     function handleIdleAction(action: var): void {
-        if (!action)
+        if (!action || IdleInhibitor.enabled)
             return;
 
         if (action === "lock")
@@ -41,12 +41,13 @@ Scope {
 
     Connections {
         function onAboutToSleep(): void {
-            if (GlobalConfig.general.idle.lockBeforeSleep)
+            if (GlobalConfig.general.idle.lockBeforeSleep && !IdleInhibitor.enabled)
                 root.lock.lock.locked = true;
         }
 
         function onLockRequested(): void {
-            root.lock.lock.locked = true;
+            if (!IdleInhibitor.enabled)
+                root.lock.lock.locked = true;
         }
 
         function onUnlockRequested(): void {
@@ -63,6 +64,8 @@ Scope {
             required property var modelData
 
             enabled: {
+                if (IdleInhibitor.enabled)
+                    return false;
                 if (!root.enabled || !(modelData.enabled ?? true))
                     return false;
                 if (modelData.inhibitWhenAudio && root.hasPlayer)
