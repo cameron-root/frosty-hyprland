@@ -12,6 +12,7 @@ import qs.components
 import qs.components.containers
 import qs.services
 import qs.modules.bar
+import qs.modules.launcher.services as LauncherServices
 
 StyledWindow {
     id: root
@@ -247,6 +248,89 @@ StyledWindow {
 
             Behavior on extraWidth {
                 Anim {}
+            }
+        }
+
+        BlobRect {
+            id: mitosisCell
+
+            group: blobGroup
+            radius: Tokens.rounding.full
+            deformScale: (0.35 * Config.appearance.deformScale) / 10000
+
+            property real targetX: root.width / 2
+            property real progress: 0
+            property real cellScale: 0
+
+            x: targetX - implicitWidth / 2
+            y: (root.height - root.borderThickness + 20) * (1 - progress) + (root.height * 0.58) * progress
+            implicitWidth: (progress > 0) ? (140 * cellScale) : 0
+            implicitHeight: (progress > 0) ? (100 * cellScale) : 0
+
+            function trigger(spawnX: var): void {
+                if (mitosisAnim.running)
+                    return;
+                if (typeof spawnX === "number" && spawnX > 0)
+                    targetX = spawnX;
+                else
+                    targetX = root.width / 2;
+
+                mitosisAnim.restart();
+            }
+
+            SequentialAnimation {
+                id: mitosisAnim
+
+                ParallelAnimation {
+                    NumberAnimation {
+                        target: mitosisCell
+                        property: "progress"
+                        from: 0
+                        to: 1
+                        duration: 250
+                        easing.type: Easing.OutBack
+                        easing.overshoot: 1.3
+                    }
+                    NumberAnimation {
+                        target: mitosisCell
+                        property: "cellScale"
+                        from: 0.1
+                        to: 1.15
+                        duration: 250
+                        easing.type: Easing.OutBack
+                        easing.overshoot: 1.4
+                    }
+                }
+                ParallelAnimation {
+                    NumberAnimation {
+                        target: mitosisCell
+                        property: "cellScale"
+                        from: 1.15
+                        to: 0
+                        duration: 160
+                        easing.type: Easing.InQuad
+                    }
+                }
+                ScriptAction {
+                    script: {
+                        mitosisCell.progress = 0;
+                        mitosisCell.cellScale = 0;
+                    }
+                }
+            }
+
+            Connections {
+                target: Hypr
+                function onWindowOpened(): void {
+                    mitosisCell.trigger();
+                }
+            }
+
+            Connections {
+                target: LauncherServices.Apps
+                function onAppLaunched(): void {
+                    mitosisCell.trigger();
+                }
             }
         }
     }
