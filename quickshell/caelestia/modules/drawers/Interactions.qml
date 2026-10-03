@@ -242,6 +242,9 @@ CustomMouseArea {
         // Always update visibility based on hover if not in shortcut mode
         if (!utilitiesShortcutActive) {
             screenState.utilities = showUtilities;
+        } else if (showUtilities) {
+            // If hovering over utilities area while in shortcut mode, transition to hover control
+            utilitiesShortcutActive = false;
         }
 
         // Show popouts on hover
@@ -310,7 +313,7 @@ CustomMouseArea {
         function onUtilitiesChanged() {
             if (root.screenState.utilities) {
                 // Utilities became visible, immediately check if this should be shortcut mode
-                const inUtilitiesArea = root.inBottomPanel(root.panels.utilities, root.mouseX, root.mouseY);
+                const inUtilitiesArea = root.inBottomPanel(root.panels.utilities, root.mouseX, root.mouseY, true);
                 if (!inUtilitiesArea) {
                     root.utilitiesShortcutActive = true;
                 }
