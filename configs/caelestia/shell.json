@@ -82,6 +82,9 @@
         "enabled": true,
         "hideDelay": 2000
     },
+    "services": {
+        "brightnessIncrement": 0.05
+    },
     "sidebar": {
         "enabled": true,
         "showOnHover": true

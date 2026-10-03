@@ -4,7 +4,7 @@
 
 iDIR="$HOME/.config/swaync/icons"
 notification_timeout=1000
-step=10  # INCREASE/DECREASE BY THIS VALUE
+step=5  # INCREASE/DECREASE BY THIS VALUE
 
 # Get current brightness as an integer (without %)
 get_brightness() {
@@ -26,16 +26,18 @@ send_notification() {
     return 0
 }
 
-# Change brightness and trigger Caelestia OSD
+# Change brightness and trigger Caelestia OSD (clean single 5% step)
 change_brightness() {
     local delta=$1
     if [[ "$delta" -gt 0 ]]; then
-        brightnessctl set "${delta}%+" >/dev/null 2>&1
-        qs -c caelestia ipc call brightness set "+${delta}%" >/dev/null 2>&1 || true
+        if ! qs -c caelestia ipc call brightness set "+${delta}%" >/dev/null 2>&1; then
+            brightnessctl set "${delta}%+" >/dev/null 2>&1
+        fi
     else
         local abs_delta=$(( -delta ))
-        brightnessctl set "${abs_delta}%-" >/dev/null 2>&1
-        qs -c caelestia ipc call brightness set "${abs_delta}%-" >/dev/null 2>&1 || true
+        if ! qs -c caelestia ipc call brightness set "${abs_delta}%-" >/dev/null 2>&1; then
+            brightnessctl set "${abs_delta}%-" >/dev/null 2>&1
+        fi
     fi
 }
 
