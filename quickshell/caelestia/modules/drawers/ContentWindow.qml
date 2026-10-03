@@ -255,17 +255,17 @@ StyledWindow {
             id: mitosisCell
 
             group: blobGroup
-            radius: Tokens.rounding.full
-            deformScale: (0.35 * Config.appearance.deformScale) / 10000
+            radius: Tokens.rounding.extraLarge
+            deformScale: (0.4 * Config.appearance.deformScale) / 10000
 
             property real targetX: root.width / 2
-            property real progress: 0
-            property real cellScale: 0
+            property real bulgeHeight: 0
+            property real bulgeWidth: 0
 
             x: targetX - implicitWidth / 2
-            y: (root.height - root.borderThickness + 20) * (1 - progress) + (root.height * 0.58) * progress
-            implicitWidth: (progress > 0) ? (140 * cellScale) : 0
-            implicitHeight: (progress > 0) ? (100 * cellScale) : 0
+            y: root.height - root.borderThickness - implicitHeight + 15
+            implicitWidth: bulgeWidth
+            implicitHeight: bulgeHeight
 
             function trigger(spawnX: var): void {
                 if (mitosisAnim.running)
@@ -284,37 +284,39 @@ StyledWindow {
                 ParallelAnimation {
                     NumberAnimation {
                         target: mitosisCell
-                        property: "progress"
+                        property: "bulgeHeight"
                         from: 0
-                        to: 1
-                        duration: 250
+                        to: 55
+                        duration: 180
                         easing.type: Easing.OutBack
-                        easing.overshoot: 1.3
+                        easing.overshoot: 1.6
                     }
                     NumberAnimation {
                         target: mitosisCell
-                        property: "cellScale"
-                        from: 0.1
-                        to: 1.15
-                        duration: 250
+                        property: "bulgeWidth"
+                        from: 80
+                        to: 260
+                        duration: 180
                         easing.type: Easing.OutBack
-                        easing.overshoot: 1.4
+                        easing.overshoot: 1.2
                     }
                 }
                 ParallelAnimation {
                     NumberAnimation {
                         target: mitosisCell
-                        property: "cellScale"
-                        from: 1.15
+                        property: "bulgeHeight"
+                        from: 55
                         to: 0
-                        duration: 160
+                        duration: 140
                         easing.type: Easing.InQuad
                     }
-                }
-                ScriptAction {
-                    script: {
-                        mitosisCell.progress = 0;
-                        mitosisCell.cellScale = 0;
+                    NumberAnimation {
+                        target: mitosisCell
+                        property: "bulgeWidth"
+                        from: 260
+                        to: 0
+                        duration: 140
+                        easing.type: Easing.InQuad
                     }
                 }
             }
